@@ -50,11 +50,52 @@
 	</dependencies>
 
 	<build>
+	    <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+          </resource>
+        </resources>
+        <testResources>
+          <testResource>
+            <directory>src/test/resources</directory>
+          </testResource>
+        </testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <executions>
+                  <execution>
+                    <id>get-the-git-infos</id>
+                    <phase>initialize</phase>
+                    <goals>
+                      <goal>revision</goal>
+                    </goals>
+                    <configuration>
+                      <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                      <includeOnlyProperties>
+                        <includeOnlyProperty>^git.build.host$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.dirty$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.time$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.message.short$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.tags$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.buildhost$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.title$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.user.*$</includeOnlyProperty>
+                      </includeOnlyProperties>
+                    </configuration>
+                  </execution>
+                </executions>
+                <configuration>
+                  <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                </configuration>
+              </plugin>
 		</plugins>
 	</build>
 
